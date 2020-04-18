@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Blog - Content Manager</title>
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/base.css">
+    <!-- 预留css -->
+    {{block 'link'}}{{/block}}
+</head>
+
+<body>
+    <!-- 预留主体的内容 -->
+    {{block 'main'}}{{/block}}
+
+    <!-- /删除确认弹出框 -->
+    <script src="lib/jquery/dist/jquery.min.js"></script>
+    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+    <!-- 预留js代码 -->
+    {{block 'script'}}{{/block}}
+</body>
+
+</html>

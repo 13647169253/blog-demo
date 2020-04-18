@@ -1,0 +1,86 @@
+{{extend './common/layout.art'}}
+{{block 'main'}}
+<!-- 头部 -->
+{{include './common/header.art'}}
+<!-- /头部 -->
+<!-- 主体内容 -->
+<div class="content">
+    <!-- 侧边栏 -->
+    {{include './common/aside.art'}}
+    <!-- 侧边栏 -->
+    <div class="main">
+        <!-- 分类标题 -->
+        <div class="title">
+            <h4>5b9a716cb2d2bf17706bcc0a</h4>
+        </div>
+        <!-- /分类标题 -->
+        <form class="form-container" action="/admin/article-add" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label>标题</label>
+                <input name="title" type="text" class="form-control" placeholder="请输入文章标题">
+            </div>
+            <div class="form-group">
+                <label>作者</label>
+                <!-- readonly 只读   -->
+                <input name="author" type="text" class="form-control" readonly value="{{@userInfo._id}}">
+            </div>
+            <div class="form-group">
+                <label>发布时间</label>
+                <input name="publishDate" type="date" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputFile">文章封面</label>
+                <input type="file" name="cover" id="file">
+                <div class="thumbnail-waper">
+                    <img class="img-thumbnail" src="">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>内容</label>
+                <textarea name="content" class="form-control" id="editor"></textarea>
+            </div>
+            <div class="buttons">
+                <input type="submit" class="btn btn-primary">
+            </div>
+        </form>
+
+    </div>
+</div>
+<!-- /主体内容 -->
+{{/block}}
+{{block 'script'}}
+<script src="lib/ckeditor5/ckeditor.js"></script>
+<script type="text/javascript">
+    let editor;
+
+    ClassicEditor
+        .create(document.querySelector('#editor'))
+        .then(newEditor => {
+            editor = newEditor;
+        })
+        .catch(error => {
+            console.error(error);
+        });
+
+    // 获取数据
+    // const editorData = editor.getData();
+
+    // 选定获取到文章显示封面的按钮
+    let file = document.querySelector('#file');
+    // 给file对象注册事件 onchange 事件
+    file.onchange = function () {
+        //创建读取文件的对象
+        var reader = new FileReader();
+        // readAsDataURL方法可以得到文件的地址,  this.files[0] 文件列表,选择第一个
+        reader.readAsDataURL(this.files[0]);
+        reader.onload = function () {
+            // 因为上述是一个耗时的操作,需要给它一个onload事件
+            // console.log(this.result);  获取到文件二进制文件编码.
+            // 将图片显示到img中去
+            document.querySelector('.img-thumbnail').src = this.result;
+        };
+        // 此时需要上传的文件并没有上传到数据库中.只有在点击了提交按钮才会上传到数据库。数据库就会将这个文件保存在指定文件夹uploads中.
+    }
+</script>
+{{/block}}
